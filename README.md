@@ -84,4 +84,4 @@ git push -u origin main
 ```bash
 git pull
 ```
-![]()
+![https://i.imgur.com/1cXqiSN.png]()
