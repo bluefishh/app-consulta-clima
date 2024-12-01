@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <title>Historial Clima</title>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Contenido de la página del historial-->
+        <div class="weather-container">
+            <!-- Tabla con el historial de consultas de la base de datos clima.db -->
+            <table class="table text-center">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Ciudad</th>
+                        <th scope="col">Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for consulta in consultas %}
+                    <tr>
+                        <th scope="row">{{ consulta[0] }}</th>
+                        <td>{{ consulta[1] }}</td>
+                        <td>{{ consulta[2] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="text-center mt-4">
+                <!-- Botón para volver a la página principal -->
+                <a href="{{ url_for('index') }}" class="btn btn-primary">Volver</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

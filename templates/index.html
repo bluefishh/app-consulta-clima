@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <title>Consulta del Clima</title>
+</head>
+<body>
+    <div class="container">
+        <div class="weather-container">
+            <!-- Formulario de búsqueda de la ciudad que queramos consultar el clima -->
+            <form id="weather-form" method="post">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="ciudad" name="ciudad" placeholder="Clima en..." required>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </form>
+            <div id="weather-result">
+                {% if clima %}
+                    <!-- Resultado de la consulta del clima -->
+                    <div class="text-center">
+                        <!-- Imagen del clima (nubes) y demás detalles del clima como la ciudad, país y la descripción -->
+                        <img src="http://openweathermap.org/img/wn/{{ clima['icono']}}@2x.png" alt="${description}" class="weather-icon">
+                        <div class="city">{{ clima['ciudad'] }}, {{ clima['pais'] }}</div>
+                        <div class="temp">{{ clima['temperatura'] }}°C</div>
+                        <div class="description">{{ clima['descripcion'] }}</div>
+                    </div>
+                    <div class="details">
+                        <!-- Detalles del clima como la sensación, la humedad y la velocidad del viento -->
+                        <div class="detail">
+                            <i class="fas fa-thermometer-half"></i>
+                            <div>Sensación</div>
+                            <div>{{ clima['temperatura'] }}°C</div>
+                        </div>
+                        <div class="detail">
+                            <i class="fas fa-tint"></i>
+                            <div>Humedad</div>
+                            <div>{{ clima['humedad'] }}</div>
+                        </div>
+                        <div class="detail">
+                            <i class="fas fa-wind"></i>
+                            <div>Viento</div>
+                            <div>{{ clima['viento'] }} km/h</div>
+                        </div>
+                    </div>
+                    <!-- Botón para ver el historial de consultas de la base de datos -->
+                    <div class="text-center mt-4">
+                        <a href="{{ url_for('consultas') }}" class="btn btn-primary">Ver historial consultas</a>
+                    </div>
+                {% elif error %}
+                    <!-- Mensaje de error si no se puede obtener el clima -->
+                    <p class="text-center text-danger">Error al obtener el clima. Por favor, intente de nuevo.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
