@@ -13,7 +13,8 @@ def crear_tabla():
         CREATE TABLE IF NOT EXISTS consultas (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             ciudad TEXT NOT NULL,
-            clima TEXT NOT NULL
+            clima TEXT NOT NULL,
+            fecha DATETIME DEFAULT CURRENT_TIMESTAMP 
         )
     ''')
     conn.commit()
@@ -23,7 +24,8 @@ def crear_tabla():
 def guardar_consulta(ciudad, humedad, temperatura, viento, cuidad, pais, descripcion):
     conn = conectar_db()
     cursor = conn.cursor()
-    cursor.execute('INSERT INTO consultas (ciudad, clima) VALUES (?, ?)', (ciudad, f"{temperatura}°C, {humedad}, {viento} km/h, {cuidad}, {pais}, {descripcion}"))
+    cursor.execute(
+        'INSERT INTO consultas (ciudad, clima, fecha) VALUES (?, ?, CURRENT_TIMESTAMP)', (ciudad, f"{temperatura}°C, {humedad}, {viento} km/h, {cuidad}, {pais}, {descripcion}"))
     conn.commit()
     conn.close()
 
